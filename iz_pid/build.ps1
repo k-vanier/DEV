@@ -1,4 +1,4 @@
-# Compile BBL Tuner avec le compilateur C# intégré à Windows (.NET Framework 4.x) - aucune installation requise.
+# Compile BBL Tuner avec le compilateur C# intégré à Windows (.NET Framework 4.x) - aucune installation requise. oui 
 $ErrorActionPreference = 'Stop'
 $root = $PSScriptRoot
 $csc = Join-Path $env:WINDIR 'Microsoft.NET\Framework64\v4.0.30319\csc.exe'
