@@ -18,7 +18,9 @@ Deux formats de ligne sont reconnus :
 
 Les messages sont stockés dans SQLite (`/var/db/zx980/zx980.sqlite`). Les lignes non reconnues sont gardées en brut.
 
-Tableau de bord (`http://<ip>:8090/`, rafraîchi toutes les 5 s) : état en ligne / hors ligne, carte OpenStreetMap avec la trace (1 h à 7 j), position, batterie, fix, réseau, opérateur, IP, téléphone, 200 derniers messages, export CSV (`/api/export.csv`). Données brutes : `/api/state?hours=24`.
+Tableau de bord (`http://<ip>:8090/`, rafraîchi toutes les 5 s) : état en ligne / hors ligne, carte OpenStreetMap avec la trace (1 h à 7 j, ou « Dates… » pour choisir du / au), distance et vitesse max du trajet, position, batterie, fix, réseau, opérateur, IP, téléphone, messages de la période, export CSV de la période (`/api/export.csv`).
+
+Données brutes : `/api/state?hours=24` ou `/api/state?from=2026-10-16T08:00&to=2026-10-16T18:00` (heure locale du serveur, date de réception). La distance ne compte que les segments à 2 km/h ou plus, pour ignorer le bruit GPS à l'arrêt.
 
 ## Installation (FreeBSD, en root)
 
