@@ -1,5 +1,5 @@
 {
-	"server_host": "unixbsd.freeboxos.fr",
+	"server_host": "unix.server.bsd",
 	"server_port": 8080,
 	"server_path": "/message"
 }
