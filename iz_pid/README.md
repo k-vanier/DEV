@@ -1,79 +1,81 @@
 # BBL Tuner
 
-**Analyse des logs Blackbox Betaflight et proposition de réglages PID, dans une application Windows autonome.**
+**Betaflight Blackbox log analysis and PID tuning suggestions, in a standalone Windows application.**
 
-BBL Tuner ouvre un fichier `.bbl` / `.bfl`, retrouve chaque vol qu'il contient, décode les données gyro et consigne, puis propose des PID corrigés. Il peut aussi appliquer ces valeurs directement à ta config Betaflight (`diff all`).
+BBL Tuner opens a `.bbl` / `.bfl` file, finds every flight it contains, decodes the gyro and setpoint data, then suggests corrected PIDs. It can also apply these values directly to your Betaflight config (`diff all`).
 
-![Recommandations](docs/recommandations.png)
+The interface is in French; button and tab names are given below as they appear in the app, with their meaning.
+
+![Recommendations](docs/recommandations.png)
 
 ---
 
-## Fonctionnalités
+## Features
 
-- **Décodeur Blackbox natif.** Il lit tous les vols d'un même fichier et gère tous les encodages et prédicteurs Betaflight ainsi que le mode `blackbox_high_resolution`. Les trames corrompues sont ignorées et la lecture se resynchronise.
-- **Step response** par déconvolution de Wiener, la même méthode que PID-Analyzer : dépassement (pic), latence à 50 % et nombre de fenêtres exploitées, par axe.
-- **Réponse temporelle.** La consigne est superposée au gyro filtré, avec la courbe d'erreur. Navigation par manœuvre, fenêtres de 0,5 s à « Tout », et affichage optionnel des termes P/I/D/F.
-- **Gyro / consigne.** Traces complètes du vol, avec les gaz et les moteurs, et zoom à la souris.
-- **Bruit.** Spectres (Welch) du gyro brut, du gyro filtré et des moteurs, détection des pics de résonance.
-- **Recommandations PID** pour P, I, D, D min/max et Feedforward, par axe. Chaque proposition est expliquée, et les variations sont limitées à ±25 % par itération.
-- **CLI Betaflight** prêt à coller (avec `simplified_pids_mode = OFF` pour que les sliders n'écrasent pas les valeurs).
-- **Correction de config.** Ouvre un `diff all`, choisit automatiquement le profil qui correspond au vol, et montre les changements ligne par ligne. Il enregistre ensuite une copie `_corrige.txt` sans jamais modifier l'original.
-- Interface **en thème sombre**, et aucune installation nécessaire.
+- **Native Blackbox decoder.** It reads every flight in the same file and supports all Betaflight encodings and predictors as well as `blackbox_high_resolution` mode. Corrupted frames are skipped and reading resynchronises.
+- **Step response** by Wiener deconvolution, the same method as PID-Analyzer: overshoot (peak), 50 % latency and number of windows used, per axis.
+- **Time response.** The setpoint is overlaid on the filtered gyro, with the error curve. Navigation by manoeuvre, windows from 0.5 s to "Tout" (all), and optional display of the P/I/D/F terms.
+- **Gyro / setpoint.** Full flight traces, with throttle and motors, and mouse zoom.
+- **Noise.** Spectra (Welch) of the raw gyro, filtered gyro and motors, with resonance peak detection.
+- **PID recommendations** for P, I, D, D min/max and Feedforward, per axis. Each suggestion is explained, and changes are limited to ±25 % per iteration.
+- **Betaflight CLI** ready to paste (with `simplified_pids_mode = OFF` so the sliders do not overwrite the values).
+- **Config correction.** Opens a `diff all`, automatically picks the profile that matches the flight, and shows the changes line by line. It then saves a `_corrige.txt` copy without ever modifying the original.
+- **Dark theme** interface, and no installation needed.
 
-| Step response | Réponse temporelle |
+| Step response | Time response |
 |---|---|
-| ![Step response](docs/step-response.png) | ![Réponse temporelle](docs/reponse-temporelle.png) |
+| ![Step response](docs/step-response.png) | ![Time response](docs/reponse-temporelle.png) |
 
-| Gyro / consigne | Bruit |
+| Gyro / setpoint | Noise |
 |---|---|
-| ![Gyro / consigne](docs/gyro-consigne.png) | ![Bruit](docs/bruit.png) |
+| ![Gyro / setpoint](docs/gyro-consigne.png) | ![Noise](docs/bruit.png) |
 
 ---
 
 ## Installation
 
-Il n'y a rien à installer. L'application fonctionne sous Windows 10/11, avec .NET Framework 4.x, déjà présent dans le système.
+There is nothing to install. The application runs on Windows 10/11, with .NET Framework 4.x, which is already part of the system.
 
-1. Télécharge `BBLTuner.exe` depuis la page [Releases](../../releases), ou compile-le (voir plus bas).
-2. Lance-le.
+1. Download `BBLTuner.exe` from the [Releases](../../releases) page, or build it (see below).
+2. Run it.
 
-## Utilisation
+## Usage
 
-1. **Récupère le log.** Dans Betaflight Configurator, onglet *Blackbox*, clique sur *Activate Mass Storage Device Mode*, ou utilise la carte SD. Copie le fichier `.BBL`.
-2. **Ouvre-le dans BBL Tuner.** Utilise le bouton *Ouvrir un fichier .bbl…* ou glisse-dépose le fichier sur la fenêtre. Chaque armement devient une ligne dans la liste des vols.
-3. **Choisis un vol.** Il est analysé immédiatement. Les vols trop courts ou inexploitables sont grisés.
-4. **Lis l'onglet *Recommandations*.** Copie le bloc de l'onglet *CLI* dans le CLI Betaflight, puis tape `save`.
-5. **Ou corrige directement ta config.** Dans l'onglet *Config*, ouvre ton fichier `diff all`, vérifie le profil, puis clique sur *Enregistrer la config corrigée…*.
+1. **Get the log.** In Betaflight Configurator, *Blackbox* tab, click *Activate Mass Storage Device Mode*, or use the SD card. Copy the `.BBL` file.
+2. **Open it in BBL Tuner.** Use the *Ouvrir un fichier .bbl…* (open a .bbl file) button or drag and drop the file onto the window. Each arming becomes a row in the flight list.
+3. **Pick a flight.** It is analysed immediately. Flights that are too short or unusable are greyed out.
+4. **Read the *Recommandations* tab.** Copy the block from the *CLI* tab into the Betaflight CLI, then type `save`.
+5. **Or fix your config directly.** In the *Config* tab, open your `diff all` file, check the profile, then click *Enregistrer la config corrigée…* (save the corrected config).
 
-Tu peux aussi passer les fichiers en ligne de commande :
+You can also pass the files on the command line:
 
 ```bash
-BBLTuner.exe mon_log.bbl ma_config.txt
+BBLTuner.exe my_log.bbl my_config.txt
 ```
 
-### Conseils pour un log exploitable
+### Tips for a usable log
 
-- Mets `blackbox_sample_rate` à **1 kHz minimum** (2 kHz est idéal), avec le mode de debug `GYRO_SCALED` ou `NONE`.
-- Fais un vol d'au moins **20 à 30 secondes** avec des **mouvements francs** : flips, rolls, changements de direction secs. Un vol en stationnaire ne donne pas assez de données pour la step response.
-- Règle les **filtres** avant les PID : un gyro bruyant fausse l'analyse du D.
-- Procède **par petites itérations** : applique, vole, relogue, réanalyse.
+- Set `blackbox_sample_rate` to **1 kHz minimum** (2 kHz is ideal), with the `GYRO_SCALED` or `NONE` debug mode.
+- Fly for at least **20 to 30 seconds** with **sharp moves**: flips, rolls, quick direction changes. A hover flight does not give enough data for the step response.
+- Tune the **filters** before the PIDs: a noisy gyro skews the D analysis.
+- Work **in small iterations**: apply, fly, log again, analyse again.
 
-> ⚠️ Les propositions sont un point de départ calculé à partir des données, pas une garantie. Vérifie la température des moteurs après chaque changement, surtout quand le D augmente.
+> ⚠️ The suggestions are a starting point computed from the data, not a guarantee. Check the motor temperature after each change, especially when D goes up.
 
 ---
 
-## Compilation
+## Build
 
-Aucun SDK n'est nécessaire : le script utilise le compilateur C# fourni avec Windows.
+No SDK is needed: the script uses the C# compiler that ships with Windows.
 
 ```bash
 powershell -ExecutionPolicy Bypass -File build.ps1
 ```
 
-Le script produit :
+The script produces:
 
-- `bin/BBLTuner.exe`, l'application ;
-- `bin/BblTests.exe`, l'outil de test en ligne de commande.
+- `bin/BBLTuner.exe`, the application;
+- `bin/BblTests.exe`, the command-line test tool.
 
 ### Tests
 
@@ -81,38 +83,38 @@ Le script produit :
 bin/BblTests.exe check
 ```
 
-`check` encode des vols simulés avec un encodeur reproduisant celui du firmware Betaflight. Il les redécode et vérifie que chaque valeur relue est identique à celle écrite. Il contrôle enfin que l'analyse retrouve le dépassement théorique attendu.
+`check` encodes simulated flights with an encoder that reproduces the Betaflight firmware's one. It decodes them again and checks that every value read back is identical to the one written. Finally it checks that the analysis finds the expected theoretical overshoot.
 
-Les autres commandes :
+Other commands:
 
-| Commande | Rôle |
+| Command | Role |
 |---|---|
-| `analyze <log.bbl>` | Rapport d'analyse texte d'un vrai log |
-| `config <config.txt>` | Simulation de correction d'une config, sans écriture |
-| `seg <log.bbl> <n° vol>` | Amplitudes du signal par segments de 1 s |
-| `gen <fichier.bbl>` | Génère le fichier de démo |
+| `analyze <log.bbl>` | Text analysis report of a real log |
+| `config <config.txt>` | Simulated correction of a config, without writing |
+| `seg <log.bbl> <flight no.>` | Signal amplitudes in 1 s segments |
+| `gen <file.bbl>` | Generates the demo file |
 
 ---
 
-## Structure du projet
+## Project structure
 
-| Fichier | Rôle |
+| File | Role |
 |---|---|
-| `src/Bbl.cs` | Décodeur du format Blackbox (multi-logs, prédicteurs, encodages, resynchronisation) |
-| `src/Dsp.cs` | FFT, Welch, déconvolution de Wiener, intercorrélation, décimation |
-| `src/Analysis.cs` | Métriques par axe et moteur de recommandation PID |
-| `src/Config.cs` | Lecture et correction des configs Betaflight (`diff all`) |
-| `src/MainForm.cs` | Fenêtre principale, liste des vols, onglets d'analyse |
-| `src/RespTab.cs` | Onglet *Réponse temporelle* |
-| `src/TraceTab.cs` | Onglet *Gyro / consigne* |
-| `src/ConfigTab.cs` | Onglet *Config* |
-| `src/Theme.cs`, `src/UiKit.cs`, `src/DarkUi.cs` | Thème sombre et composants d'interface |
-| `src/Program.cs` | Point d'entrée et journal d'erreurs |
-| `tests/Tests.cs` | Encodeur synthétique et banc de test |
-| `demo/demo_3_vols.bbl` | Log de démo : vol sous-amorti, vol trop court, vol sur-amorti |
+| `src/Bbl.cs` | Blackbox format decoder (multiple logs, predictors, encodings, resynchronisation) |
+| `src/Dsp.cs` | FFT, Welch, Wiener deconvolution, cross-correlation, decimation |
+| `src/Analysis.cs` | Per-axis metrics and PID recommendation engine |
+| `src/Config.cs` | Reading and correcting Betaflight configs (`diff all`) |
+| `src/MainForm.cs` | Main window, flight list, analysis tabs |
+| `src/RespTab.cs` | *Réponse temporelle* (time response) tab |
+| `src/TraceTab.cs` | *Gyro / consigne* (gyro / setpoint) tab |
+| `src/ConfigTab.cs` | *Config* tab |
+| `src/Theme.cs`, `src/UiKit.cs`, `src/DarkUi.cs` | Dark theme and UI components |
+| `src/Program.cs` | Entry point and error log |
+| `tests/Tests.cs` | Synthetic encoder and test bench |
+| `demo/demo_3_vols.bbl` | Demo log: under-damped flight, too-short flight, over-damped flight |
 
-## Références
+## References
 
 - [Betaflight – PID Tuning Guide](https://betaflight.com/docs/wiki/guides/current/PID-Tuning-Guide)
-- [Betaflight Blackbox Log Viewer](https://github.com/betaflight/blackbox-log-viewer), pour la référence du format
-- [PID-Analyzer](https://github.com/Plasmatree/PID-Analyzer), pour la méthode de step response
+- [Betaflight Blackbox Log Viewer](https://github.com/betaflight/blackbox-log-viewer), as the format reference
+- [PID-Analyzer](https://github.com/Plasmatree/PID-Analyzer), for the step response method
