@@ -75,7 +75,7 @@ Tout le dossier se copie dans `/usr` sur le module.
 
 ```json
 {
-	"server_host": "unixbsd.freeboxos.fr",
+	"server_host": "totobsd.freeboxos.fr",
 	"server_port": 8080,
 	"server_path": "/message"
 }
