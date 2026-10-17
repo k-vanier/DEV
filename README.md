@@ -1,6 +1,6 @@
 # DEV
 
-My personal projects.
+ projects.
 
 | Project | Description | Stack |
 |---|---|---|
@@ -9,12 +9,6 @@ My personal projects.
 | [ZX980_Android](ZX980_Android) | Android app that shows the ZX980_Server dashboard: map, track, status, battery, network | Kotlin, osmdroid |
 | [iz_pid](iz_pid) | BBL Tuner: Betaflight Blackbox log analysis and PID tuning suggestions, as a standalone Windows app | C# / .NET Framework 4.x |
 
-## ZX980 tracker
-
 The three ZX980 projects work together:
-
-```
-ZX980 (tracker) --HTTP POST, port 8080--> ZX980_Server --dashboard + JSON API, port 8090--> web browser / ZX980_Android
-```
 
 Each project has its own README with installation and usage details.
