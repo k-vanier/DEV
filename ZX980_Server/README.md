@@ -6,7 +6,7 @@ Standard Python 3 only (no uvicorn, fastapi or nginx).
 
 ![ZX980 dashboard](Images/dashboard.jpg)
 
-*Dashboard with demo data: a 3.4 km loop in central Caen, last hour, dark theme. Trip, position and device cards on the left, track on the map (green dot = start), messages of the period below.*
+*Dashboard with demo data: a 2.4 km loop around the centre of Lisieux, last hour, dark theme. Trip, position and device cards on the left, track on the map (green dot = start), messages of the period below.*
 
 ## How it works
 
