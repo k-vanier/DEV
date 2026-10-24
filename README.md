@@ -4,7 +4,7 @@
 
 | Project | Description | Stack |
 |---|---|---|
-| [EG800Q-EU](EG800Q-EU) | Tests and tools for the Quectel EG800Q-EU LTE Cat 1 bis module (EU bands) | Python 3, QuecPython |
+| [EG800Q_smsResponder](EG800Q_smsResponder) | SMS responder on the Quectel EG800Q-EU LTE module: answers incoming SMS with Claude, in French, on FreeBSD; also an SMS time server and module tests | Python 3, pyserial, pyusb, Claude Code |
 | [ZX980](ZX980) | Firmware for the ZX908 GPS tracker (Quectel EC800M 4G module): reads the GPS position and sends it over HTTP to the server | QuecPython |
 | [ZX980_Server](ZX980_Server) | Server that receives the tracker's positions, stores them in SQLite and shows them on a web dashboard with a map | Python 3 (standard library), FreeBSD |
 | [ZX980_Android](ZX980_Android) | Android app that shows the ZX980_Server dashboard: map, track, status, battery, network | Kotlin, osmdroid |
