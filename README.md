@@ -9,6 +9,7 @@
 | [ZX980_Android](ZX980_Android) | Android app that shows the ZX980_Server dashboard: map, track, status, battery, network | Kotlin, osmdroid |
 | [iz_pid](iz_pid) | BBL Tuner: Betaflight Blackbox log analysis and PID tuning suggestions, as a standalone Windows app | C# / .NET Framework 4.x |
 | [list_songs](list_songs) | Sorts music dropped into a `Candidats/` folder: renames and files it by artist/album, fetches cover art, rebuilds an HTML/CSV catalogue | Python 3, beets |
+| [miniscreenWin](miniscreenWin) | Windows driver for the WeAct Studio 0.96" USB screen: live clock + CPU/RAM/GPU dashboard, images, animated GIFs, text | Go |
 
 The three ZX980 projects work together:
 
